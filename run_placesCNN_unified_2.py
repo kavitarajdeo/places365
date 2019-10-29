@@ -8,7 +8,6 @@ from torchvision import transforms as trn
 from torch.nn import functional as F
 import os
 import numpy as np
-#from scipy.misc import imresize as imresize
 from skimage import data, color
 from skimage.transform import rescale, resize, downscale_local_mean
 import cv2
