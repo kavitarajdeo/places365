@@ -152,7 +152,7 @@ probs, idx = h_x.sort(0, True)
 probs = probs.numpy()
 idx = idx.numpy()
 
-print('RESULT ON :' + img_url)
+print('RESULT ON :-' + img_url)
 # output the IO prediction
 io_image = np.mean(labels_IO[idx[:10]]) # vote for the indoor or outdoor
 if io_image < 0.5:
