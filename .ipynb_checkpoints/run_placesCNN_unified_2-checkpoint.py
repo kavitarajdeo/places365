@@ -136,7 +136,7 @@ weight_softmax[weight_softmax<0] = 0
 
 # load the test image
 def load_image():
-    img_url = 'C:\\Users\\Kavita\\data-science\\places365_modified\\data'
+    img_url = 'C:\\Users\\Kavita\\data-science\\places365_modified\\data\\images.jpg'
     if not os.access(img_url, os.W_OK):
         img_url = 'http://places.csail.mit.edu/demo/6.jpg'
     os.system('wget %s -q -O test.jpg' % img_url)
