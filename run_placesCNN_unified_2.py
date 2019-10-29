@@ -136,7 +136,9 @@ weight_softmax[weight_softmax<0] = 0
 
 # load the test image
 def load_image():
-    img_url = 'http://places.csail.mit.edu/demo/6.jpg'
+    img_url = '/data/cam_example.jpg'
+    if not os.access(model_file, os.W_OK):
+        img_url = 'http://places.csail.mit.edu/demo/6.jpg'
     os.system('wget %s -q -O test.jpg' % img_url)
     img = Image.open('test.jpg')
     input_img = V(tf(img).unsqueeze(0))
