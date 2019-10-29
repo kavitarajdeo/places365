@@ -135,12 +135,15 @@ weight_softmax = params[-2].data.numpy()
 weight_softmax[weight_softmax<0] = 0
 
 # load the test image
-img_url = 'http://places.csail.mit.edu/demo/6.jpg'
-os.system('wget %s -q -O test.jpg' % img_url)
-img = Image.open('test.jpg')
-input_img = V(tf(img).unsqueeze(0))
+def load_image():
+    img_url = 'http://places.csail.mit.edu/demo/6.jpg'
+    os.system('wget %s -q -O test.jpg' % img_url)
+    img = Image.open('test.jpg')
+    input_img = V(tf(img).unsqueeze(0))
+    return input_img,img_url
 
 # forward pass
+input_img,img_url = load_image()
 logit = model.forward(input_img)
 h_x = F.softmax(logit, 1).data.squeeze()
 probs, idx = h_x.sort(0, True)
