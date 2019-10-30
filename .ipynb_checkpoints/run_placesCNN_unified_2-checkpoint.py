@@ -191,4 +191,4 @@ cv2.imwrite('cam.jpg', result)
 
 import matplotlib.pyplot as plt
 plt.imshow(result)
-plt.show
+plt.show()
