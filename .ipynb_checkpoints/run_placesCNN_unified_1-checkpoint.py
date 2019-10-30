@@ -8,8 +8,7 @@ from torchvision import transforms as trn
 from torch.nn import functional as F
 import os
 import numpy as np
-from skimage import data, color
-from skimage.transform import rescale, resize, downscale_local_mean
+from scipy.misc import imresize as imresize
 import cv2
 from PIL import Image
 
@@ -70,9 +69,7 @@ def returnCAM(feature_conv, weight_softmax, class_idx):
         cam = cam - np.min(cam)
         cam_img = cam / np.max(cam)
         cam_img = np.uint8(255 * cam_img)
-        #output_cam.append(imresize(cam_img, size_upsample))
-        output_cam = resize(cam_img,(cam_img.shape[0] // 4,cam_img.shape[1] // 4),
-                            anti_aliasing=True)
+        output_cam.append(imresize(cam_img, size_upsample))
     return output_cam
 
 def returnTF():
@@ -134,30 +131,21 @@ params = list(model.parameters())
 weight_softmax = params[-2].data.numpy()
 weight_softmax[weight_softmax<0] = 0
 
-import pathlib
 # load the test image
-def load_image():
-    img_url = 'places365/data/images.jpg'
-    img_file = pathlib.Path(img_url)
-    img = Image.open(img_url)
-    #img = cv2.imread(img_url)
-    print('image url valid:' + str(img))
-#    if not img.exists():
-#        img_url = 'http://places.csail.mit.edu/demo/6.jpg'
-#        os.system('wget %s -q -O test.jpg' % img_url)
-#        img = Image.open('test.jpg')
-    input_img = V(tf(img).unsqueeze(0))
-    return input_img,img_url
+img_url = 'http://places.csail.mit.edu/demo/6.jpg'
+os.system('wget %s -q -O test.jpg' % img_url)
+img = Image.open('test.jpg')
+input_img = V(tf(img).unsqueeze(0))
 
 # forward pass
-input_img,img_url = load_image()
 logit = model.forward(input_img)
 h_x = F.softmax(logit, 1).data.squeeze()
 probs, idx = h_x.sort(0, True)
 probs = probs.numpy()
 idx = idx.numpy()
 
-print('RESULT ON :-' + img_url)
+print('RESULT ON ' + img_url)
+
 # output the IO prediction
 io_image = np.mean(labels_IO[idx[:10]]) # vote for the indoor or outdoor
 if io_image < 0.5:
@@ -182,14 +170,8 @@ print('Class activation map is saved as cam.jpg')
 CAMs = returnCAM(features_blobs[0], weight_softmax, [idx[0]])
 
 # render the CAM and output
-#img = cv2.imread('test.jpg')
-img = cv2.imread(img_url)
+img = cv2.imread('test.jpg')
 height, width, _ = img.shape
-
-from skimage import exposure
-img = exposure.rescale_intensity(img, out_range=(0, 255))
-
-print('after rescale intensity')
 heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
 result = heatmap * 0.4 + img * 0.5
 cv2.imwrite('cam.jpg', result)

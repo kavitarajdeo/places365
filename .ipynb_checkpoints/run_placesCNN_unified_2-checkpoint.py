@@ -184,8 +184,6 @@ CAMs = returnCAM(features_blobs[0], weight_softmax, [idx[0]])
 # render the CAM and output
 #img = cv2.imread('test.jpg')
 img = cv2.imread(img_url)
-#img = np.array(img,dtype=np.uint16)
-#img_gray = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 height, width, _ = img.shape
 from skimage import exposure
 img = exposure.rescale_intensity(img, out_range=(0, 255))
