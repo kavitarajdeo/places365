@@ -137,12 +137,12 @@ weight_softmax[weight_softmax<0] = 0
 # load the test image
 def load_image():
     img_url = 'C:\\Users\\Kavita\\data-science\\places365_modified\\data\\images.jpg'
-    img_url_valid = os.access(img_url, os.F_OK)
-    print('image url valid:' + str(img_url_valid))
-    if not os.access(img_url, os.F_OK):
+    img = pathlib.Path(img_url)
+    print('image url valid:' + str(img))
+    if not exists img:
         img_url = 'http://places.csail.mit.edu/demo/6.jpg'
-    os.system('wget %s -q -O test.jpg' % img_url)
-    img = Image.open('test.jpg')
+        os.system('wget %s -q -O test.jpg' % img_url)
+        img = Image.open('test.jpg')
     input_img = V(tf(img).unsqueeze(0))
     return input_img,img_url
 
