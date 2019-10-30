@@ -137,7 +137,7 @@ weight_softmax[weight_softmax<0] = 0
 import pathlib
 # load the test image
 def load_image():
-    img_url = 'data\\images.jpg'
+    img_url = getcwd()+'data/images.jpg'
     img_file = pathlib.Path(img_url)
     img = Image.open(img_file)
     print('image url valid:' + str(img))
