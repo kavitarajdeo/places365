@@ -150,7 +150,7 @@ def load_image():
     return input_img,img_url,img_np
 
 # forward pass
-input_img,img_url = load_image()
+input_img,img_url,img_np = load_image()
 logit = model.forward(input_img)
 h_x = F.softmax(logit, 1).data.squeeze()
 probs, idx = h_x.sort(0, True)
@@ -183,8 +183,8 @@ CAMs = returnCAM(features_blobs[0], weight_softmax, [idx[0]])
 
 # render the CAM and output
 #img = cv2.imread('test.jpg')
-img = cv2.imread(input_img)
-height, width, _ = img.shape
+#img = cv2.imread(input_img)
+height, width, _ = img_np.shape
 
 print('after cv2.imread'+img)
 heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
