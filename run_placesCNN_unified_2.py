@@ -142,7 +142,6 @@ def load_image():
     img_file = pathlib.Path(img_url)
     img = Image.open(img_url)
     img_np = cv2.imread(img_url)
-    print('image url valid:' + str(img))
 #    if not img.exists():
 #        img_url = 'http://places.csail.mit.edu/demo/6.jpg'
 #        os.system('wget %s -q -O test.jpg' % img_url)
@@ -189,5 +188,7 @@ height, width, _ = img_np.shape
 heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
 result = heatmap * 0.4 + img_np * 0.5
 cv2.imwrite('cam.jpg', result)
-final_img = Image.open('cam.jpg')
-final_img.show()
+
+import matplotlib.pyplot as plt
+plt.imshow(result)
+plt.show
