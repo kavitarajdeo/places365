@@ -71,8 +71,9 @@ def returnCAM(feature_conv, weight_softmax, class_idx):
         cam_img = cam / np.max(cam)
         cam_img = np.uint8(255 * cam_img)
         #output_cam.append(imresize(cam_img, size_upsample))
-        output_cam = resize(cam_img,(cam_img.shape[0] // 4,cam_img.shape[1] // 4),
-                            anti_aliasing=True)
+        output_cam = numpy.array(Image.fromarray(cam_img).resize())
+        #output_cam = resize(cam_img,(cam_img.shape[0] // 4,cam_img.shape[1] // 4),
+         #                   anti_aliasing=True)
     return output_cam
 
 def returnTF():
@@ -187,7 +188,6 @@ CAMs = returnCAM(features_blobs[0], weight_softmax, [idx[0]])
 height, width, _ = img_np.shape
 
 print(img_np.type())
-#heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
-heatmap = cv2.applyColorMap(CAMs[0], cv2.COLORMAP_JET)
+heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
 result = heatmap * 0.4 + img * 0.5
 cv2.imwrite('cam.jpg', result)
