@@ -140,10 +140,10 @@ def load_image():
     img_url = 'C:\\Users\\Kavita\\data-science\\places365_modified\\data\\images.jpg'
     img = pathlib.Path(img_url)
     print('image url valid:' + str(img))
-    if not img.exists():
-        img_url = 'http://places.csail.mit.edu/demo/6.jpg'
-        os.system('wget %s -q -O test.jpg' % img_url)
-        img = Image.open('test.jpg')
+#    if not img.exists():
+#        img_url = 'http://places.csail.mit.edu/demo/6.jpg'
+#        os.system('wget %s -q -O test.jpg' % img_url)
+#        img = Image.open('test.jpg')
     input_img = V(tf(img).unsqueeze(0))
     return input_img,img_url
 
