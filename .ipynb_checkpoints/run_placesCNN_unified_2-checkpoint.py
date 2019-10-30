@@ -183,7 +183,7 @@ CAMs = returnCAM(features_blobs[0], weight_softmax, [idx[0]])
 
 # render the CAM and output
 #img = cv2.imread('test.jpg')
-img = cv2.imread(img_url)
+img = cv2.imread(imput_img)
 height, width, _ = img.shape
 
 print('after cv2.imread'+img)
