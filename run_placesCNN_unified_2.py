@@ -138,7 +138,8 @@ import pathlib
 # load the test image
 def load_image():
     img_url = 'C:\\Users\\Kavita\\data-science\\places365_modified\\data\\images.jpg'
-    img = pathlib.Path(img_url)
+    img_file = pathlib.Path(img_url)
+    img = Image.open(img_file)
     print('image url valid:' + str(img))
 #    if not img.exists():
 #        img_url = 'http://places.csail.mit.edu/demo/6.jpg'
