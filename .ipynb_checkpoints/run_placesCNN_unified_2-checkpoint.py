@@ -140,7 +140,7 @@ def load_image():
     img_url = 'places365/data/images.jpg'
     img_file = pathlib.Path(img_url)
     #img = Image.open(img_file)
-    img = cv2.imread(img_file)
+    img = cv2.imread(img_url)
     print('image url valid:' + str(img))
 #    if not img.exists():
 #        img_url = 'http://places.csail.mit.edu/demo/6.jpg'
