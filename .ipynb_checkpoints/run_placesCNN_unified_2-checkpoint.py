@@ -189,4 +189,5 @@ height, width, _ = img_np.shape
 heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
 result = heatmap * 0.4 + img_np * 0.5
 cv2.imwrite('cam.jpg', result)
-print('cam.jpg')
+final_img = Image.open('cam.jpg')
+final_img.show()
