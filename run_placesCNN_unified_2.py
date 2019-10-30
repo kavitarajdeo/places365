@@ -12,6 +12,9 @@ from skimage import data, color
 from skimage.transform import rescale, resize, downscale_local_mean
 import cv2
 from PIL import Image
+%matplotlib inline
+import matplotlib
+import matplotlib.pyplot as plt
 
 
 def load_labels():
@@ -189,7 +192,5 @@ heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JE
 result = heatmap * 0.4 + img_np * 0.5
 cv2.imwrite('cam.jpg', result)
 
-%matplotlib inline
-import matplotlib.pyplot as plt
 plt.imshow(result)
 plt.show()
