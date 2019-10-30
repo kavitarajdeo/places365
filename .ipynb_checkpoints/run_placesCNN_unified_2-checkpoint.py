@@ -71,7 +71,7 @@ def returnCAM(feature_conv, weight_softmax, class_idx):
         cam_img = cam / np.max(cam)
         cam_img = np.uint8(255 * cam_img)
         #output_cam.append(imresize(cam_img, size_upsample))
-        output_cam = np.array(Image.fromarray(cam_img).resize(size=0.25))
+        output_cam = np.array(Image.fromarray(cam_img).resize(size=25))
         #output_cam = resize(cam_img,(cam_img.shape[0] // 4,cam_img.shape[1] // 4),
          #                   anti_aliasing=True)
     return output_cam
