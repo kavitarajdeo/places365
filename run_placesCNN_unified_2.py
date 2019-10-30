@@ -189,7 +189,7 @@ img = cv2.imread(img_url)
 height, width, _ = img.shape
 from skimage import exposure
 img = exposure.rescale_intensity(img, out_range=(0, 255))
-print('img during rendering:'+img)
+print('after rescale intensity')
 heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
 result = heatmap * 0.4 + img * 0.5
 cv2.imwrite('cam.jpg', result)
