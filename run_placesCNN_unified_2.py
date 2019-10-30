@@ -141,6 +141,7 @@ weight_softmax[weight_softmax<0] = 0
 import pathlib
 # load the test image
 def load_image():
+    #img_url = 'C:\\Users\\Kavita\\data-science\\places365_modified\\data\\images.jpg'
     img_url = 'places365/data/images.jpg'
     img_file = pathlib.Path(img_url)
     img = Image.open(img_url)
