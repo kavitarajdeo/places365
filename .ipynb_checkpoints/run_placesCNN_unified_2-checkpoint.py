@@ -140,14 +140,14 @@ def load_image():
     img_url = 'places365/data/images.jpg'
     img_file = pathlib.Path(img_url)
     img = Image.open(img_url)
-    #img = cv2.imread(img_url)
+    img_np = cv2.imread(img_url)
     print('image url valid:' + str(img))
 #    if not img.exists():
 #        img_url = 'http://places.csail.mit.edu/demo/6.jpg'
 #        os.system('wget %s -q -O test.jpg' % img_url)
 #        img = Image.open('test.jpg')
     input_img = V(tf(img).unsqueeze(0))
-    return input_img,img_url
+    return input_img,img_url,img_np
 
 # forward pass
 input_img,img_url = load_image()
