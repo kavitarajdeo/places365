@@ -139,7 +139,7 @@ import pathlib
 def load_image():
     img_url = 'places365/data/images.jpg'
     img_file = pathlib.Path(img_url)
-    img = Image.open(img_file)
+    img = Image.open(img_url)
     #img = cv2.imread(img_url)
     print('image url valid:' + str(img))
 #    if not img.exists():
@@ -184,8 +184,7 @@ CAMs = returnCAM(features_blobs[0], weight_softmax, [idx[0]])
 # render the CAM and output
 #img = cv2.imread('test.jpg')
 img = cv2.imread(img_url)
-import numpy
-img = np.array(img,dtype=np.uint16)
+#img = np.array(img,dtype=np.uint16)
 #img_gray = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 height, width, _ = img.shape
 heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
