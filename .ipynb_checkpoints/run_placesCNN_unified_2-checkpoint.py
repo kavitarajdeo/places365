@@ -189,5 +189,5 @@ heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JE
 result = heatmap * 0.4 + img_np * 0.5
 cv2.imwrite('cam.jpg', result)
 import matplotlib.pyplot as plt
-plt.imshow('cam.jpg')
+plt.imshow(result.reshape(result.shape[0], result.shape[1]), cmap=plt.cm.Greys)
 plt.show()
