@@ -182,7 +182,7 @@ CAMs = returnCAM(features_blobs[0], weight_softmax, [idx[0]])
 
 # render the CAM and output
 img = cv2.imread('test.jpg')
-img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+img_gray = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 height, width, _ = img.shape
 heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
 result = heatmap * 0.4 + img * 0.5
