@@ -187,6 +187,9 @@ img = cv2.imread(img_url)
 #img = np.array(img,dtype=np.uint16)
 #img_gray = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 height, width, _ = img.shape
+from skimage import exposure
+img = exposure.rescale_intensity(img, out_range=(0, 255))
+print('img during rendering:'+img)
 heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
 result = heatmap * 0.4 + img * 0.5
 cv2.imwrite('cam.jpg', result)
