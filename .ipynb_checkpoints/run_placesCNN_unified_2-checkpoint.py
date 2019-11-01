@@ -12,8 +12,7 @@ from skimage import data, color
 from skimage.transform import rescale, resize, downscale_local_mean
 import cv2
 from PIL import Image
-import matplotlib
-import matplotlib.pyplot as plt
+from google.colab.patches import cv2_imshow
 
 
 def load_labels():
