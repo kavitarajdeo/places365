@@ -1,6 +1,6 @@
 # PlacesCNN to predict the scene category, attribute, and class activation map in a single pass
 # by Bolei Zhou, sep 2, 2017
-%matplotlib notebook
+
 import torch
 from torch.autograd import Variable as V
 import torchvision.models as models
@@ -191,6 +191,4 @@ height, width, _ = img_np.shape
 heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
 result = heatmap * 0.4 + img_np * 0.5
 cv2.imwrite('cam.jpg', result)
-
-plt.imshow(result)
-plt.show()
+cv2_imshow('cam.jpg')
