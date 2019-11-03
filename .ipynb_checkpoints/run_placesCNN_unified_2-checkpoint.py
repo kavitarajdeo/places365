@@ -178,8 +178,6 @@ def convert_video_frames():
         second = second+ framerate
         second = round(second/2)
         success = getFrame(sec)
-        else:
-            break
     vid_url.release()
     cv2.destroyAllWindows()
     
