@@ -151,8 +151,42 @@ def load_image():
     input_img = V(tf(img).unsqueeze(0))
     return input_img,img_url,img_np
 
+def convert_video_frames():
+    vid_url = 'video001.mp4'
+    if(not os.access(vid_url, os.W_OK):
+        os.system('wget https://drive.google.com/open?id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q'  + vid_url)
+
+    vidcap = cv2.VideoCapture(vid_url)
+    os.makedirs('video_frame')
+    #frame
+    currentframe = 1
+    second = 0
+    framerate = 0.5
+    
+    def getFrame(sec):
+        vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
+        hasFrame,image = vidcap.read()
+        if hasFrame:
+            name = './video_frame/'+str(currentframe)+'.jpg'
+            print('Creating..'+name)
+            #writing the extracted images
+            cv2.imwrite(name,frame)
+            return hasFrame
+
+    while(True): 
+        currentframe += 1
+        second = second+ framerate
+        second = round(second/2)
+        success = getFrame(sec)
+        else:
+            break
+    vid_url.release()
+    cv2.destroyAllWindows()
+    
+
 # forward pass
 input_img,img_url,img_np = load_image()
+convert_video_frames()
 logit = model.forward(input_img)
 h_x = F.softmax(logit, 1).data.squeeze()
 probs, idx = h_x.sort(0, True)
@@ -190,4 +224,6 @@ height, width, _ = img_np.shape
 heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
 result = heatmap * 0.4 + img_np * 0.5
 cv2.imwrite('cam.jpg', result)
-cv2_imshow('cam.jpg')
+#cv2_imshow('cam.jpg')
+
+#convert processed images to a video
