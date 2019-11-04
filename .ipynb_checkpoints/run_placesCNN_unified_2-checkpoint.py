@@ -13,7 +13,16 @@ from skimage.transform import rescale, resize, downscale_local_mean
 import cv2
 from PIL import Image
 from google.colab.patches import cv2_imshow
-from google.colab import drive
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+from google.colab import auth
+from oauth2client.client import GoogleCredentials
+
+# 1. Authenticate and create the PyDrive client.
+auth.authenticate_user()
+gauth = GoogleAuth()
+gauth.credentials = GoogleCredentials.get_application_default()
+drive = GoogleDrive(gauth)
 
 def load_labels():
     # prepare all the labels
@@ -157,10 +166,10 @@ def convert_video_frames():
         #vid_url = "https://drive.google.com/open?id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q"
         #os.system('wget '+vid_url)
         vid_file = drive.CreateFile({'id': '1VSgjv6z7Vj0iBtHqQovUoGWeDwltgfdV'})
-        vid_file.GetContentFile('/content/places365/pretrained/video001.mp4')
+        vid_file.GetContentFile('video001.mp4')
     #vid_file = np.load(vid_url)
 
-    vidcap = cv2.VideoCapture(vid_file)
+    vidcap = cv2.VideoCapture("video001.mp4")
     #os.makedirs('video_frame')
     #frame
     #print("vid_url"+vid_url)
