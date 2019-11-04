@@ -17,7 +17,7 @@ from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from google.colab import auth
 from oauth2client.client import GoogleCredentials
-
+import tensorflow as tf
 # 1. Authenticate and create the PyDrive client.
 auth.authenticate_user()
 gauth = GoogleAuth()
@@ -182,11 +182,12 @@ def convert_video_frames():
         vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
         print("before vidcap.read")
         hasFrame,image = vidcap.read()
-        print("after vidcap.read - hasFrame:"+ str(hasFrame)+str(image))
+        print("after vidcap.read - hasFrame:"+ str(hasFrame))
         if hasFrame:
             name = './video_frame/'+str(currentframe)+'.jpg'
             print('Creating..'+name)
-            #writing the extracted images            
+            #writing the extracted images 
+            image = V(tf(image).unsqueeze(0))
             logit = model.forward(image)
             h_x = F.softmax(logit, 1).data.squeeze()
             probs, idx = h_x.sort(0, True)
