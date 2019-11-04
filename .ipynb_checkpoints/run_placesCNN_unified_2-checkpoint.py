@@ -184,7 +184,7 @@ def convert_video_frames():
         hasFrame,image = vidcap.read()
         print("after vidcap.read - hasFrame:"+ str(hasFrame))
         if hasFrame:
-            name = './video_frame/'+str(currentframe)+'.jpg'
+            name = '/content/video_frame/'+str(currentframe)+'.jpg'
             print('Creating..'+name)
             #writing the extracted images
             image = Image.open(name)
