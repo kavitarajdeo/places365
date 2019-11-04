@@ -182,7 +182,7 @@ def convert_video_frames():
         vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
         print("before vidcap.read")
         hasFrame,image = vidcap.read()
-        print("after vidcap.read"+ str(hasFrame))
+        print("after vidcap.read - hasFrame:"+ str(hasFrame)+str(image))
         if hasFrame:
             name = './video_frame/'+str(currentframe)+'.jpg'
             print('Creating..'+name)
