@@ -154,12 +154,14 @@ def load_image():
 def convert_video_frames():
     vid_url = 'video001.mp4'
     if not os.access(vid_url, os.W_OK):
-        vid_url=os.system('wget https://drive.google.com/open?id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q')
+        temp_url = "https://drive.google.com/open?id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q"
+        os.system('wget '+temp_url)
+    vid_file = np.load(vid_url)
 
-    vidcap = cv2.VideoCapture(vid_url)
+    vidcap = cv2.VideoCapture(vid_file)
     #os.makedirs('video_frame')
     #frame
-    print("vid_url"+vid_url)
+    #print("vid_url"+vid_url)
     currentframe = 1
     second = 0
     framerate = 0.5
@@ -176,6 +178,8 @@ def convert_video_frames():
             #writing the extracted images
             cv2.imwrite(name,frame)
             return hasFrame
+        else:
+            break
 
     while(True): 
         currentframe += 1
