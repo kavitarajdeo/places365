@@ -231,7 +231,7 @@ def convert_video_frames():
             
         return hasFrame
     success = True
-    while success: 
+    while success or currentframe <15000: 
         currentframe += 1
         second = second+ framerate
         second = round(second/2)
