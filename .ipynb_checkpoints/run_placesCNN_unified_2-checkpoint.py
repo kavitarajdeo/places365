@@ -188,6 +188,47 @@ def convert_video_frames():
             print('Creating..'+name)
             #writing the extracted images
             cv2.imwrite(name,image)
+            logit = model.forward(image)
+            h_x = F.softmax(logit, 1).data.squeeze()
+            probs, idx = h_x.sort(0, True)
+            probs = probs.numpy()
+            idx = idx.numpy()
+
+            #print('RESULT ON :-' + img_url)
+            # output the IO prediction
+            io_image = np.mean(labels_IO[idx[:10]]) # vote for the indoor or outdoor
+            if io_image < 0.5:
+                print('--TYPE OF ENVIRONMENT: indoor')
+            else:
+                print('--TYPE OF ENVIRONMENT: outdoor')
+
+            # output the prediction of scene category
+            print('--SCENE CATEGORIES:')
+            for i in range(0, 5):
+                print('{:.3f} -> {}'.format(probs[i], classes[idx[i]]))
+
+            # output the scene attributes
+            responses_attribute = W_attribute.dot(features_blobs[1])
+            idx_a = np.argsort(responses_attribute)
+            print('--SCENE ATTRIBUTES:')
+            print(', '.join([labels_attribute[idx_a[i]] for i in range(-1,-10,-1)]))
+
+
+            # generate class activation mapping
+            print('Class activation map is saved as cam.jpg')
+            CAMs = returnCAM(features_blobs[0], weight_softmax, [idx[0]])
+
+            # render the CAM and output
+            #img = cv2.imread('test.jpg')
+            #img = cv2.imread(input_img)
+            height, width, _ = img_np.shape
+            heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
+            result = heatmap * 0.4 + img_np * 0.5
+            cv2.imwrite('cam'+str(currentframe)+'.jpg', result)
+
+            
+            
+            
         return hasFrame
     success = True
     while success: 
