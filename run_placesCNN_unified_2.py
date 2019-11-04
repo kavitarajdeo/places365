@@ -187,7 +187,7 @@ def convert_video_frames():
             name = './video_frame/'+str(currentframe)+'.jpg'
             print('Creating..'+name)
             #writing the extracted images
-            cv2.imwrite(name,frame)
+            cv2.imwrite(name,image)
         return hasFrame
     success = True
     while success: 
