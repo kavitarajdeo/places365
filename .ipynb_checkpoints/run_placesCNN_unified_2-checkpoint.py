@@ -189,14 +189,14 @@ def convert_video_frames():
             #writing the extracted images
             cv2.imwrite(name,frame)
         return hasFrame
-    sucess = true
+    success = True
     while success: 
         currentframe += 1
         second = second+ framerate
         second = round(second/2)
         success = getFrame(second)
-    vid_url.release()
-    cv2.destroyAllWindows()
+    #vid_url.release()
+    #cv2.destroyAllWindows()
     
 
 # forward pass
