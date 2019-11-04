@@ -189,7 +189,7 @@ def convert_video_frames():
             #writing the extracted images
             cv2.imwrite(name,frame)
         return hasFrame
-    sucess = true
+    success = True
     while success: 
         currentframe += 1
         second = second+ framerate
