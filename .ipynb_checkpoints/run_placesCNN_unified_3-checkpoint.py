@@ -190,7 +190,7 @@ def convert_video_frames():
             #writing the extracted images
             cv2.imwrite(name,image)
             image = torch.from_numpy(image)
-            image = V(tf(image).unsqueeze(0))
+            image=image.view(1x4)
             logit = model.forward(image)
             h_x = F.softmax(logit, 1).data.squeeze()
             probs, idx = h_x.sort(0, True)
