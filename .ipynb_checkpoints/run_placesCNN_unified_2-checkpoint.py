@@ -157,15 +157,18 @@ def convert_video_frames():
         os.system('wget https://drive.google.com/open?id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q')
 
     vidcap = cv2.VideoCapture(vid_url)
-    os.makedirs('video_frame')
+    #os.makedirs('video_frame')
     #frame
     currentframe = 1
     second = 0
     framerate = 0.5
     
     def getFrame(sec):
+        print("In getFrame")
         vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
+        print("before vidcap.read")
         hasFrame,image = vidcap.read()
+        print("after vidcap.read")
         if hasFrame:
             name = './video_frame/'+str(currentframe)+'.jpg'
             print('Creating..'+name)
