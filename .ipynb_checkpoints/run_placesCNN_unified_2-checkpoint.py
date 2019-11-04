@@ -188,7 +188,7 @@ def convert_video_frames():
             name = '/content/video_frame/'+str(currentframe)+'.jpg'
             print('Creating..'+name)
             #writing the extracted images
-            image = Image.open(image)
+            #image = Image.open(image)
             #img_np = cv2.imread(img_url) 
             image = V(tf(image).unsqueeze(0))
             logit = model.forward(image)
