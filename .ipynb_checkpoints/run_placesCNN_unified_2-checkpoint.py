@@ -17,7 +17,7 @@ from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from google.colab import auth
 from oauth2client.client import GoogleCredentials
-import tensorflow as tf
+
 # 1. Authenticate and create the PyDrive client.
 auth.authenticate_user()
 gauth = GoogleAuth()
@@ -170,7 +170,7 @@ def convert_video_frames():
     #vid_file = np.load(vid_url)
 
     vidcap = cv2.VideoCapture("/content/video002.mp4")
-    if not os.path.exists('video_frame'):
+    if not os.path.exists("/content/video_frame"): 
         os.makedirs('video_frame')
     #frame
     #print("vid_url"+vid_url)
@@ -183,55 +183,12 @@ def convert_video_frames():
         vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
         print("before vidcap.read")
         hasFrame,image = vidcap.read()
-        print("after vidcap.read - hasFrame:"+ str(hasFrame))
+        print("after vidcap.read - hasFrame:"+ str(hasFrame)+str(image))
         if hasFrame:
-            name = '/content/video_frame/'+str(currentframe)+'.jpg'
+            name = './video_frame/'+str(currentframe)+'.jpg'
             print('Creating..'+name)
             #writing the extracted images
-            #image = Image.open(image)
-            #img_np = cv2.imread(img_url) 
-            image = V(tf(image).unsqueeze(0))
-            logit = model.forward(image)
-            h_x = F.softmax(logit, 1).data.squeeze()
-            probs, idx = h_x.sort(0, True)
-            probs = probs.numpy()
-            idx = idx.numpy()
-
-            #print('RESULT ON :-' + img_url)
-            # output the IO prediction
-            io_image = np.mean(labels_IO[idx[:10]]) # vote for the indoor or outdoor
-            if io_image < 0.5:
-                print('--TYPE OF ENVIRONMENT: indoor')
-            else:
-                print('--TYPE OF ENVIRONMENT: outdoor')
-
-            # output the prediction of scene category
-            print('--SCENE CATEGORIES:')
-            for i in range(0, 5):
-                print('{:.3f} -> {}'.format(probs[i], classes[idx[i]]))
-
-            # output the scene attributes
-            responses_attribute = W_attribute.dot(features_blobs[1])
-            idx_a = np.argsort(responses_attribute)
-            print('--SCENE ATTRIBUTES:')
-            print(', '.join([labels_attribute[idx_a[i]] for i in range(-1,-10,-1)]))
-
-
-            # generate class activation mapping
-            print('Class activation map is saved as cam.jpg')
-            CAMs = returnCAM(features_blobs[0], weight_softmax, [idx[0]])
-
-            # render the CAM and output
-            #img = cv2.imread('test.jpg')
-            #img = cv2.imread(input_img)
-            height, width, _ = img_np.shape
-            heatmap = cv2.applyColorMap(cv2.resize(CAMs[0],(width, height)), cv2.COLORMAP_JET)
-            result = heatmap * 0.4 + img_np * 0.5
-            cv2.imwrite('cam'+str(currentframe)+'.jpg', result)
-
-            
-            
-            
+            cv2.imwrite(name,image)
         return hasFrame
     success = True
     while success or currentframe <15000: 
