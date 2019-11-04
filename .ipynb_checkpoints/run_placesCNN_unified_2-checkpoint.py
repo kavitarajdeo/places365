@@ -170,7 +170,7 @@ def convert_video_frames():
     #vid_file = np.load(vid_url)
 
     vidcap = cv2.VideoCapture("/content/video002.mp4")
-    if not exists os.getDirs('video_frame'):
+    if not os.path.exists('video_frame'):
         os.makedirs('video_frame')
     #frame
     #print("vid_url"+vid_url)
