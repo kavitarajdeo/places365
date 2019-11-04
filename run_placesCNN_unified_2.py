@@ -186,8 +186,7 @@ def convert_video_frames():
         if hasFrame:
             name = './video_frame/'+str(currentframe)+'.jpg'
             print('Creating..'+name)
-            #writing the extracted images
-            cv2.imwrite(name,image)
+            #writing the extracted images            
             logit = model.forward(image)
             h_x = F.softmax(logit, 1).data.squeeze()
             probs, idx = h_x.sort(0, True)
