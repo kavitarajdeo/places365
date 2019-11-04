@@ -154,11 +154,12 @@ def load_image():
 def convert_video_frames():
     vid_url = 'video001.mp4'
     if not os.access(vid_url, os.W_OK):
-        os.system('wget https://drive.google.com/open?id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q')
+        vid_url=os.system('wget https://drive.google.com/open?id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q')
 
     vidcap = cv2.VideoCapture(vid_url)
     #os.makedirs('video_frame')
     #frame
+    print("vid_url"+vid_url)
     currentframe = 1
     second = 0
     framerate = 0.5
