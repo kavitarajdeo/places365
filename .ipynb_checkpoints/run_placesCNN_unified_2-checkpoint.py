@@ -177,11 +177,9 @@ def convert_video_frames():
             print('Creating..'+name)
             #writing the extracted images
             cv2.imwrite(name,frame)
-            return hasFrame
-        else:
-            break
+         return hasFrame
 
-    while(True): 
+    while success: 
         currentframe += 1
         second = second+ framerate
         second = round(second/2)
