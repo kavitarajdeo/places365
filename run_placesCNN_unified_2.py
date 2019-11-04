@@ -14,10 +14,6 @@ import cv2
 from PIL import Image
 from google.colab.patches import cv2_imshow
 from google.colab import drive
-auth.authenticate_user()
-gauth = GoogleAuth()
-gauth.credentials = GoogleCredentials.get_application_default()
-drive = GoogleDrive(gauth)
 
 def load_labels():
     # prepare all the labels
@@ -156,14 +152,13 @@ def load_image():
     return input_img,img_url,img_np
 
 def convert_video_frames():
-    vid_url = 'video001.mp4'
+    vid_url = '1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q'
     if not os.access(vid_url, os.W_OK):
-        vid_url = drive.CreateFile({'id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q'})
-        vid_url.GetContentFile('/content/places365/pretrained/video001.mp4')
-        #os.system('wget '+vid_url)
-        #vid_file = np.load(vid_url)
+        vid_url = "https://drive.google.com/open?id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q"
+        os.system('wget '+vid_url)
+    vid_file = np.load(vid_url)
 
-    vidcap = cv2.VideoCapture(vid_url)
+    vidcap = cv2.VideoCapture(vid_file)
     #os.makedirs('video_frame')
     #frame
     #print("vid_url"+vid_url)
