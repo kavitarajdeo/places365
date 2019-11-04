@@ -157,7 +157,7 @@ def convert_video_frames():
         os.system('wget https://drive.google.com/open?id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q')
 
     vidcap = cv2.VideoCapture(vid_url)
-    os.makedirs('video_frame')
+    #os.makedirs('video_frame')
     #frame
     currentframe = 1
     second = 0
