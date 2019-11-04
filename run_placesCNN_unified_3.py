@@ -190,7 +190,7 @@ def convert_video_frames():
             print('Creating..'+name)
             #writing the extracted images
             cv2.imwrite(name,image)
-            image = tflow.convert_to_tensor(image,dtype=float32)
+            image = tflow.convert_to_tensor(image,dtype=tf.float32)
             logit = model.forward(image)
             h_x = F.softmax(logit, 1).data.squeeze()
             probs, idx = h_x.sort(0, True)
