@@ -186,7 +186,9 @@ def convert_video_frames():
         if hasFrame:
             name = './video_frame/'+str(currentframe)+'.jpg'
             print('Creating..'+name)
-            #writing the extracted images 
+            #writing the extracted images
+            image = Image.open(name)
+            #img_np = cv2.imread(img_url) 
             image = V(tf(image).unsqueeze(0))
             logit = model.forward(image)
             h_x = F.softmax(logit, 1).data.squeeze()
