@@ -166,7 +166,7 @@ def convert_video_frames():
         #vid_url = "https://drive.google.com/open?id=1-ECPBt94prpnaJnkS6XBDip_Yx2A1a0Q"
         #os.system('wget '+vid_url)
         vid_file = drive.CreateFile({'id': '1VSgjv6z7Vj0iBtHqQovUoGWeDwltgfdV'})
-        vid_file.GetContentFile('video001.mp4')
+        vid_file.GetContentFile('/content/video001.mp4')
     #vid_file = np.load(vid_url)
 
     vidcap = cv2.VideoCapture("/content/video001.mp4")
