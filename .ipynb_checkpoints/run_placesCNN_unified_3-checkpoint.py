@@ -2,7 +2,6 @@
 # by Bolei Zhou, sep 2, 2017
 
 import torch
-import tensorflow as tflow
 from torch.autograd import Variable as V
 import torchvision.models as models
 from torchvision import transforms as trn
@@ -190,7 +189,7 @@ def convert_video_frames():
             print('Creating..'+name)
             #writing the extracted images
             cv2.imwrite(name,image)
-            image = tflow.convert_to_tensor(image,dtype=tflow.float32)
+            image = torch.from_numpy(image)
             logit = model.forward(image)
             h_x = F.softmax(logit, 1).data.squeeze()
             probs, idx = h_x.sort(0, True)
