@@ -191,7 +191,7 @@ def convert_video_frames():
             cv2.imwrite(name,image)
             image = Image.fromarray(image)
             #image = Image.open(image)
-            image = V(tf(img).unsqueeze(0))
+            image = V(tf(image).unsqueeze(0))
 
             logit = model.forward(image)
             h_x = F.softmax(logit, 1).data.squeeze()
