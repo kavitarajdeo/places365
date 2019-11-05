@@ -183,13 +183,13 @@ def convert_video_frames():
         vidcap.set(cv2.CAP_PROP_POS_MSEC,sec*1000)
         print("before vidcap.read")
         hasFrame,image = vidcap.read()
-        print("after vidcap.read - hasFrame:"+ str(hasFrame)+str(image))
+        print("after vidcap.read - hasFrame:"+ str(hasFrame))
         if hasFrame:
             name = './video_frame/'+str(currentframe)+'.jpg'
             print('Creating..'+name)
             #writing the extracted images
             cv2.imwrite(name,image)
-            image = torch.as_tensor(np.stack(image))
+            image = Image.fromArray(image)
             logit = model.forward(image)
             h_x = F.softmax(logit, 1).data.squeeze()
             probs, idx = h_x.sort(0, True)
