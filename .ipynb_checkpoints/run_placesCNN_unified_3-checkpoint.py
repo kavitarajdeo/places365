@@ -190,6 +190,9 @@ def convert_video_frames():
             #writing the extracted images
             cv2.imwrite(name,image)
             image = Image.fromarray(image)
+            image = Image.open(image)
+            input_img = V(tf(img).unsqueeze(0))
+
             logit = model.forward(image)
             h_x = F.softmax(logit, 1).data.squeeze()
             probs, idx = h_x.sort(0, True)
