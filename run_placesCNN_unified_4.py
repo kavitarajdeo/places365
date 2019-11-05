@@ -162,10 +162,6 @@ def load_image():
     input_img = V(tf(img).unsqueeze(0))
     return input_img,img_url,img_np
 
-currentframe = 1
-second = 0
-framerate = 0.5
-success = True
 def convert_video_frames():
     vid_url = '1HVY2rbbTWUeZiYRtN41EMIIZMxXQ5TRr'
     if not os.access(vid_url, os.W_OK):
@@ -245,6 +241,10 @@ def convert_video_frames():
 
 # forward pass
 input_img,img_url,img_np = load_image()
+currentframe = 1
+second = 0
+framerate = 0.5
+success = True
 convert_video_frames()
 logit = model.forward(input_img)
 h_x = F.softmax(logit, 1).data.squeeze()
