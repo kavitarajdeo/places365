@@ -234,7 +234,7 @@ def convert_video_frames():
             result = heatmap * 0.4 + img_np * 0.5
             cv2.imwrite('cam'+str(currentframe)+'.jpg', result)     
         return hasFrame
-    while success or currentframe <15000: 
+    while True or currentframe <15000: 
         currentframe += 1
         second = second+ framerate
         second = round(second/2)
